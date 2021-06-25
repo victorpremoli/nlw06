@@ -2,16 +2,17 @@ import 'reflect-metadata'
 import express, { Request, Response, NextFunction } from 'express';
 import "express-async-errors"
 import { router } from "./routes"
-
-
 import "./database"
+import cors from 'cors'
 
 const app = express();
 
+app.use(cors())
+
 app.use(express.json()) // talking to express that i will work with JSON
+
 app.use(router);
 
-//mid
 app.use((err: Error, request: Request, response: Response, next: NextFunction) => {
   if (err instanceof Error) {
     return response.status(400).json({
